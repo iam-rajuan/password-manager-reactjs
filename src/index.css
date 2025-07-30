@@ -4,4 +4,7 @@
     .mycontainer{
         @apply container px-40 py-16 mx-auto;
     }
+    .input-style{
+        @apply bg-white rounded-full border border-green-500 w-full p-4 py-1
+    }
 }
