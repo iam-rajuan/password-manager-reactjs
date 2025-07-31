@@ -6,8 +6,8 @@ const Navbar = () => {
     <div className="mycontainer flex justify-between items-center px-4 py-5 h-14 ">
 
       <div className="logo font-bold text-2xl">
-        <span className="text-green-600">&lt;</span>
-        Pass<span className="text-green-600">Op/&gt;</span>
+        <span className="text-green-500">&lt;</span>
+        Pass<span className="text-green-500">Op/&gt;</span>
         </div>
       {/* <ul>
         <li className='flex gap-4'>
@@ -17,7 +17,7 @@ const Navbar = () => {
         </li>
       </ul> */}
       <button className='cursor-pointer bg-green-700 flex text-white justify-between items-center rounded-full mx-2 my-5 ring-white ring-1'>
-        <img className='invert w-10 p-1' src="/icons/github.svg" alt="" />
+        <img className='invert w-10 p-1' src="/icons/github.svg" alt="github logo" />
         <span className='font-bold px-2'>Github</span>
       </button>
 
