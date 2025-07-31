@@ -11,7 +11,7 @@ const Manager = () => {
 
 
     useEffect(() => {
-        let password = localStorage.getItem("passwords")
+        let password = localStorage.getItem("password")
         if (password) {
             setPasswordArray(JSON.parse(password))
         }
@@ -27,9 +27,10 @@ const Manager = () => {
     }
 
     const savePassword = () => {
-        console.log(form);
+        // console.log(form);
+
         setPasswordArray([...passwordArray, form])
-        localStorage.setItem(password, JSON.stringify([...passwordArray, form]))
+        localStorage.setItem("password", JSON.stringify([...passwordArray, form]))
         console.log([...passwordArray, form]);
 
     }
@@ -91,11 +92,14 @@ const Manager = () => {
                         </tr>
                     </thead>
                     <tbody className='bg-green-100'>
-                        <tr>
-                            <td className='py-2 border-white text-center w-32'>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-                            <td className='py-2 border-white text-center w-32'>Malcolm Lockyer</td>
-                            <td className='py-2 border-white text-center w-32'>1961</td>
+                        {passwordArray.map((item, index)=>{
+
+                            return <tr key={index}>
+                            <td className='py-2 border-white text-center w-32'>{item.site}</td>
+                            <td className='py-2 border-white text-center w-32'>{item.username}</td>
+                            <td className='py-2 border-white text-center w-32'>{item.password}</td>
                         </tr>
+                        })}
                     </tbody>
                 </table>
                 }

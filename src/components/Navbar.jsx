@@ -9,13 +9,17 @@ const Navbar = () => {
         <span className="text-green-600">&lt;</span>
         Pass<span className="text-green-600">Op/&gt;</span>
         </div>
-      <ul>
+      {/* <ul>
         <li className='flex gap-4'>
             <a className='hover:font-bold' href="/">Home</a>
             <a className='hover:font-bold' href="#">About</a>
             <a className='hover:font-bold' href="#">Contact</a>
         </li>
-      </ul>
+      </ul> */}
+      <button className='cursor-pointer bg-green-700 flex text-white justify-between items-center rounded-full mx-2 my-5 ring-white ring-1'>
+        <img className='invert w-10 p-1' src="/icons/github.svg" alt="" />
+        <span className='font-bold px-2'>Github</span>
+      </button>
 
     </div>
     </nav>
