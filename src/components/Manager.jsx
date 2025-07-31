@@ -1,27 +1,104 @@
 import React from 'react'
+import { useState, useEffect, useRef } from "react";
+
 
 const Manager = () => {
+
+    const ref = useRef()
+    const [form, setform] = useState({ site: "", username: "", password: "" })
+    const [passwordArray, setPasswordArray] = useState([])
+
+
+
+    useEffect(() => {
+        let password = localStorage.getItem("passwords")
+        if (password) {
+            setPasswordArray(JSON.parse(password))
+        }
+    }, [])
+
+
+    const showPassword = () => {
+        if (ref.current.src.includes("icons/eyecross.png"))
+            ref.current.src = "icons/eye.png"
+        else {
+            ref.current.src = "icons/eyecross.png"
+        }
+    }
+
+    const savePassword = () => {
+        console.log(form);
+        setPasswordArray([...passwordArray, form])
+        localStorage.setItem(password, JSON.stringify([...passwordArray, form]))
+        console.log([...passwordArray, form]);
+
+    }
+
+    const hangleChange = (e) => {
+        setform({ ...form, [e.target.name]: e.target.value })
+        //   console.log(form);
+
+    }
+
+
     return (
         <>
-            <div class="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"><div class="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-green-400 opacity-20 blur-[100px]"></div></div>
-            <div className="bg-slate-50 mycontainer">
-                <h1 className='font-bold text-4xl text-center'><span className="text-green-700">&lt;</span>
-                    Pass<span className="text-green-700">Op/&gt;</span></h1>
+            {/* background */}
+            <div className="absolute inset-0 -z-10 h-full w-full bg-green-50 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"><div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-green-400 opacity-20 blur-[100px]"></div></div>
+
+            {/* start container */}
+            <div className="mycontainer">
+                <h1 className='font-bold text-4xl text-center'><span className="text-green-600">&lt;</span>
+                    Pass<span className="text-green-600">Op/&gt;</span></h1>
                 <p className='text-green-900 text-center'>Your Own Password Manager</p>
+                {/* inputs */}
                 <div className='flex flex-col p-4 text-black items-center'>
-                    <input className='input-style' type="text" />
+                    {/* first input */}
+                    <input value={form.site} onChange={hangleChange} placeholder='Enter URL' className='input-style' type="text" name='site' id='site' />
+                    {/* pair input */}
                     <div className='flex my-3 gap-8 w-full justify-between'>
-                        <input className='input-style' type="text" />
-                        <input className='input-style' type="text" />
+                        <input value={form.username} onChange={hangleChange} placeholder='Enter Username' className='input-style' type="text" name='username' id='username' />
+                        {/* span input of pair input  */}
+                        <div className="relative">
+                            <input value={form.password} onChange={hangleChange} placeholder='Enter Password' className='input-style' type="text" name='password' id='password' />
+
+                            <span className="absolute left-36 right-0 py-1 my-[2px] cursor-pointer">
+                                <img ref={ref} onClick={showPassword} className=' ' width={24} src="icons/eye.png" alt="" />
+                            </span>
+
+                        </div>
                     </div>
-                    <button className='flex justify-center items-center bg-green-400 hover:bg-green-300 rounded-full w-fit py-2 px-4 '>
+                    {/* Save Password button  */}
+                    <button onClick={savePassword} className='flex justify-center items-center bg-green-400 hover:bg-green-300 rounded-full w-fit py-2 px-5 gap-1 border border-green-900'>
                         <lord-icon
                             src="https://cdn.lordicon.com/efxgwrkc.json"
                             trigger="hover">
                         </lord-icon>
                         save
                     </button>
+
                 </div>
+
+
+                <h2 className='text-md font-bold'>Your Passwords</h2>
+                {passwordArray.length === 0 && <div>No Password To show</div>}
+                {passwordArray.length != 0 && <table class="table-auto w-full rounded-md overflow-hidden">
+                    <thead className='bg-green-700 text-white'>
+                        <tr>
+                            <th className='py-2'>Site</th>
+                            <th className='py-2'>Username</th>
+                            <th className='py-2'>Password</th>
+                        </tr>
+                    </thead>
+                    <tbody className='bg-green-100'>
+                        <tr>
+                            <td className='py-2 border-white text-center w-32'>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
+                            <td className='py-2 border-white text-center w-32'>Malcolm Lockyer</td>
+                            <td className='py-2 border-white text-center w-32'>1961</td>
+                        </tr>
+                    </tbody>
+                </table>
+                }
             </div>
 
         </>
