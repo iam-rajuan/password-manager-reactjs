@@ -13,7 +13,7 @@ const Manager = () => {
 
 
     const copyText = (text) => {
-        toast('Copied! Yayy', {
+        toast('Copied!', {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -56,21 +56,49 @@ const Manager = () => {
         localStorage.setItem("password", JSON.stringify([...passwordArray, {...form, id: uuidv4()}]))
         // console.log([...passwordArray, {...form, id: uuidv4()}]);
         setform({ site: "", username: "", password: "" })
-
+        toast('Saved!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+        });
+        
     }
     const editPassword = (id) => {
         // console.log(form);
-
-        console.log("editing password with id: ", id);
         
+        console.log("editing password with id: ", id);
+        setform(passwordArray.filter(item=>item.id===id)[0])
+        setPasswordArray(passwordArray.filter(item=>item.id!=id))
+        // localStorage.setItem("password", JSON.stringify(passwordArray.filter(item=>item.id!=id)))
         
     }
     const deletePassword = (id) => {
         // console.log(form);
-        
-        console.log("deleting password with id: ", id);
-
-    }
+        let c = confirm("Do you really want to delete this password?")
+        // console.log("deleting password with id: ", id);
+        if (c) {
+            
+            setPasswordArray(passwordArray.filter(item=>item.id!=id))
+            localStorage.setItem("password", JSON.stringify(passwordArray.filter(item=>item.id!=id)))
+            toast('Deleted!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+        });
+            }
+        }
 
     const hangleChange = (e) => {
         setform({ ...form, [e.target.name]: e.target.value })
@@ -180,9 +208,9 @@ const Manager = () => {
                                             <span>{item.password}</span>
                                             <div className="lordiconCopy size-7 cursor-pointer" onClick={() => { copyText(item.password) }}>
                                                 <lord-icon
-                                                    src="https://cdn.lordicon.com/xuoapdes.json"
-                                                    trigger="hover"
-                                                    style={{ "width": "25px", "height": "25px", "paddingLeft": "5px", "paddingTop": "3px" }}>
+                                                    style={{ "width": "25px", "height": "25px", "paddingTop": "3px", "paddingLeft": "3px" }}
+                                                    src="https://cdn.lordicon.com/iykgtsbt.json"
+                                                    trigger="hover" >
                                                 </lord-icon>
                                             </div>
                                         </div>
@@ -195,14 +223,14 @@ const Manager = () => {
                                                 src="https://cdn.lordicon.com/gwlusjdu.json"
                                                 trigger="hover"
                                                 style={{"width":"25px", "height":"25px"}}>
-                                            </lord-icon>
+                                                </lord-icon>
                                             </span>
                                             <span className='cursor-pointer mx-1' onClick={()=>{deletePassword(item.id)}}>
                                                 <lord-icon
                                                 src="https://cdn.lordicon.com/skkahier.json"
                                                 trigger="hover"
                                                 style={{"width":"25px", "height":"25px"}}>
-                                            </lord-icon>
+                                                </lord-icon>
                                             </span>
                                         </div>
                                     </td>
