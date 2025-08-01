@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect, useRef } from "react";
 import { ToastContainer, toast, Bounce } from 'react-toastify';
+import { v4 as uuidv4 } from 'uuid';
 
 const Manager = () => {
 
@@ -51,9 +52,23 @@ const Manager = () => {
     const savePassword = () => {
         // console.log(form);
 
-        setPasswordArray([...passwordArray, form])
-        localStorage.setItem("password", JSON.stringify([...passwordArray, form]))
-        console.log([...passwordArray, form]);
+        setPasswordArray([...passwordArray, {...form, id: uuidv4()}])
+        localStorage.setItem("password", JSON.stringify([...passwordArray, {...form, id: uuidv4()}]))
+        // console.log([...passwordArray, {...form, id: uuidv4()}]);
+        setform({ site: "", username: "", password: "" })
+
+    }
+    const editPassword = (id) => {
+        // console.log(form);
+
+        console.log("editing password with id: ", id);
+        
+        
+    }
+    const deletePassword = (id) => {
+        // console.log(form);
+        
+        console.log("deleting password with id: ", id);
 
     }
 
@@ -110,7 +125,7 @@ const Manager = () => {
                             src="https://cdn.lordicon.com/efxgwrkc.json"
                             trigger="hover">
                         </lord-icon>
-                        save
+                        save Password
                     </button>
 
                 </div>
@@ -125,40 +140,42 @@ const Manager = () => {
                                 <th className='py-2'>Site</th>
                                 <th className='py-2'>Username</th>
                                 <th className='py-2'>Password</th>
+                                <th className='py-2'>Actions</th>
+
                             </tr>
                         </thead>
                         <tbody className='bg-green-100'>
                             {passwordArray.map((item, index) => {
 
                                 return <tr key={index}>
-                                    <td className='py-2 border-white text-center w-32'>
+                                    <td className='py-2 border-white text-center'>
                                         <div className='flex items-center justify-center'>
                                             <a href={item.site}>{item.site}</a>
                                             <div className="lordiconCopy size-7 cursor-pointer" onClick={() => { copyText(item.site) }}>
                                                 <lord-icon
-                                                    src="https://cdn.lordicon.com/xuoapdes.json"
-                                                    trigger="hover"
-                                                    style={{ "width": "25px", "height": "25px", "paddingLeft": "5px", "paddingTop": "3px" }}>
+                                                    style={{ "width": "25px", "height": "25px", "paddingTop": "3px", "paddingLeft": "3px" }}
+                                                    src="https://cdn.lordicon.com/iykgtsbt.json"
+                                                    trigger="hover" >
                                                 </lord-icon>
                                             </div>
                                         </div>
                                     </td>
 
 
-                                    <td className='py-2 border-white text-center w-32'>
+                                    <td className='py-2 border-white text-center'>
                                         <div className='flex items-center justify-center'>
                                             <span>{item.username}</span>
                                             <div className="lordiconCopy size-7 cursor-pointer" onClick={() => { copyText(item.username) }}>
                                                 <lord-icon
-                                                    src="https://cdn.lordicon.com/xuoapdes.json"
-                                                    trigger="hover"
-                                                    style={{ "width": "25px", "height": "25px", "paddingLeft": "5px", "paddingTop": "3px" }}>
+                                                    style={{ "width": "25px", "height": "25px", "paddingTop": "3px", "paddingLeft": "3px" }}
+                                                    src="https://cdn.lordicon.com/iykgtsbt.json"
+                                                    trigger="hover" >
                                                 </lord-icon>
                                             </div>
                                         </div>
                                     </td>
 
-                                    <td className='py-2 border-white text-center w-32'>
+                                    <td className='py-2 border-white text-center'>
                                         <div className='flex items-center justify-center'>
                                             <span>{item.password}</span>
                                             <div className="lordiconCopy size-7 cursor-pointer" onClick={() => { copyText(item.password) }}>
@@ -168,6 +185,25 @@ const Manager = () => {
                                                     style={{ "width": "25px", "height": "25px", "paddingLeft": "5px", "paddingTop": "3px" }}>
                                                 </lord-icon>
                                             </div>
+                                        </div>
+                                    </td>
+                                    
+                                    <td className='py-2 border-white text-center'>
+                                        <div className='flex items-center justify-center '>
+                                            <span className='cursor-pointer mx-1' onClick={()=>{editPassword(item.id)}}>
+                                                <lord-icon
+                                                src="https://cdn.lordicon.com/gwlusjdu.json"
+                                                trigger="hover"
+                                                style={{"width":"25px", "height":"25px"}}>
+                                            </lord-icon>
+                                            </span>
+                                            <span className='cursor-pointer mx-1' onClick={()=>{deletePassword(item.id)}}>
+                                                <lord-icon
+                                                src="https://cdn.lordicon.com/skkahier.json"
+                                                trigger="hover"
+                                                style={{"width":"25px", "height":"25px"}}>
+                                            </lord-icon>
+                                            </span>
                                         </div>
                                     </td>
                                 </tr>
