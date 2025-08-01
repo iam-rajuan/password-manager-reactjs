@@ -10,6 +10,11 @@ const Manager = () => {
 
 
 
+    const copyText = (text) => {
+      navigator.clipboard.writeText(text)
+    }
+    
+
     useEffect(() => {
         let password = localStorage.getItem("password")
         if (password) {
@@ -80,29 +85,67 @@ const Manager = () => {
 
                 </div>
 
+                <div className="passwords">
 
-                <h2 className='text-md font-bold'>Your Passwords</h2>
-                {passwordArray.length === 0 && <div>No Password To show</div>}
-                {passwordArray.length != 0 && <table class="table-auto w-full rounded-md overflow-hidden">
-                    <thead className='bg-green-700 text-white'>
-                        <tr>
-                            <th className='py-2'>Site</th>
-                            <th className='py-2'>Username</th>
-                            <th className='py-2'>Password</th>
-                        </tr>
-                    </thead>
-                    <tbody className='bg-green-100'>
-                        {passwordArray.map((item, index)=>{
+                    <h2 className='text-md font-bold'>Your Passwords</h2>
+                    {passwordArray.length === 0 && <div>No Password To show</div>}
+                    {passwordArray.length != 0 && <table className="table-auto w-full rounded-md overflow-hidden">
+                        <thead className='bg-green-700 text-white'>
+                            <tr>
+                                <th className='py-2'>Site</th>
+                                <th className='py-2'>Username</th>
+                                <th className='py-2'>Password</th>
+                            </tr>
+                        </thead>
+                        <tbody className='bg-green-100'>
+                            {passwordArray.map((item, index) => {
 
-                            return <tr key={index}>
-                            <td className='py-2 border-white text-center w-32'>{item.site}</td>
-                            <td className='py-2 border-white text-center w-32'>{item.username}</td>
-                            <td className='py-2 border-white text-center w-32'>{item.password}</td>
-                        </tr>
-                        })}
-                    </tbody>
-                </table>
-                }
+                                return <tr key={index}>
+                                    <td className='py-2 border-white text-center w-32'>
+                                        <div className='flex items-center justify-center'>
+                                            <a href={item.site}>{item.site}</a>
+                                            <div className="lordiconCopy size-7 cursor-pointer" onClick={()=>{copyText(item.site)}}>
+                                                <lord-icon
+                                                    src="https://cdn.lordicon.com/xuoapdes.json"
+                                                    trigger="hover"
+                                                    style={{ "width": "25px", "height": "25px", "paddingTop": "6" }}>
+                                                </lord-icon>
+                                            </div>
+                                        </div>
+                                    </td>
+
+
+                                    <td className='py-2 border-white text-center w-32'>
+                                        <div className='flex items-center justify-center'>
+                                            <span>{item.username}</span>
+                                            <div className="lordiconCopy size-7 cursor-pointer" onClick={()=>{copyText(item.username)}}>
+                                                <lord-icon
+                                                    src="https://cdn.lordicon.com/xuoapdes.json"
+                                                    trigger="hover"
+                                                    style={{ "width": "25px", "height": "25px", "paddingTop": "6" }}>
+                                                </lord-icon>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td className='py-2 border-white text-center w-32'>
+                                        <div className='flex items-center justify-center'>
+                                            <span>{item.password}</span>
+                                            <div className="lordiconCopy size-7 cursor-pointer" onClick={()=>{copyText(item.password)}}>
+                                                <lord-icon
+                                                    src="https://cdn.lordicon.com/xuoapdes.json"
+                                                    trigger="hover"
+                                                    style={{ "width": "25px", "height": "25px", "paddingTop": "6" }}>
+                                                </lord-icon>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            })}
+                        </tbody>
+                    </table>
+                    }
+                </div>
             </div>
 
         </>
