@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from "react";
 const Manager = () => {
 
     const ref = useRef()
+    const passRef = useRef()
     const [form, setform] = useState({ site: "", username: "", password: "" })
     const [passwordArray, setPasswordArray] = useState([])
 
@@ -24,10 +25,15 @@ const Manager = () => {
 
 
     const showPassword = () => {
-        if (ref.current.src.includes("icons/eyecross.png"))
+        passRef.current.type = "text"
+        if (ref.current.src.includes("icons/eyecross.png")){
+
             ref.current.src = "icons/eye.png"
+            passRef.current.type = "password"
+        }
         else {
             ref.current.src = "icons/eyecross.png"
+            passRef.current.type = "text"
         }
     }
 
@@ -66,7 +72,7 @@ const Manager = () => {
                         <input value={form.username} onChange={hangleChange} placeholder='Enter Username' className='input-style' type="text" name='username' id='username' />
                         {/* span input of pair input  */}
                         <div className="relative">
-                            <input value={form.password} onChange={hangleChange} placeholder='Enter Password' className='input-style' type="text" name='password' id='password' />
+                            <input ref={passRef} value={form.password} onChange={hangleChange} placeholder='Enter Password' className='input-style' type="password" name='password' id='password' />
 
                             <span className="absolute left-36 right-0 py-1 my-[2px] cursor-pointer">
                                 <img ref={ref} onClick={showPassword} className=' ' width={24} src="icons/eye.png" alt="" />
@@ -108,7 +114,7 @@ const Manager = () => {
                                                 <lord-icon
                                                     src="https://cdn.lordicon.com/xuoapdes.json"
                                                     trigger="hover"
-                                                    style={{ "width": "25px", "height": "25px", "paddingTop": "6" }}>
+                                                    style={{ "width": "25px", "height": "25px", "paddingLeft": "5px", "paddingTop": "3px" }}>
                                                 </lord-icon>
                                             </div>
                                         </div>
@@ -122,7 +128,7 @@ const Manager = () => {
                                                 <lord-icon
                                                     src="https://cdn.lordicon.com/xuoapdes.json"
                                                     trigger="hover"
-                                                    style={{ "width": "25px", "height": "25px", "paddingTop": "6" }}>
+                                                    style={{ "width": "25px", "height": "25px", "paddingLeft": "5px", "paddingTop": "3px" }}>
                                                 </lord-icon>
                                             </div>
                                         </div>
@@ -135,7 +141,7 @@ const Manager = () => {
                                                 <lord-icon
                                                     src="https://cdn.lordicon.com/xuoapdes.json"
                                                     trigger="hover"
-                                                    style={{ "width": "25px", "height": "25px", "paddingTop": "6" }}>
+                                                    style={{ "width": "25px", "height": "25px", "paddingLeft": "5px", "paddingTop": "3px" }}>
                                                 </lord-icon>
                                             </div>
                                         </div>
