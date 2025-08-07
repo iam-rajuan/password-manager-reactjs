@@ -27,12 +27,26 @@ const Manager = () => {
         navigator.clipboard.writeText(text)
     }
 
+   const getPasswords = async () => {
+
+       let req = await fetch("http://localhost:3000/")
+       let password = await req.json()
+       console.log(password);
+       
+        setPasswordArray(password)
+    
+      
+    }
+    
+
 
     useEffect(() => {
-        let password = localStorage.getItem("password")
-        if (password) {
-            setPasswordArray(JSON.parse(password))
-        }
+
+        getPasswords()
+        // let password = localStorage.getItem("password")
+        // if (password) {
+        //     setPasswordArray(JSON.parse(password))
+        // }
     }, [])
 
 
