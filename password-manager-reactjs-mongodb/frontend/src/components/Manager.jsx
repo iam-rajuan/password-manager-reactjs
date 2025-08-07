@@ -67,6 +67,7 @@ const Manager = () => {
             setPasswordArray([...passwordArray, {...form, id: uuidv4()}])
 
             await fetch("http://localhost:3000/", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({...form, id: uuidv4()})})
+
             // localStorage.setItem("password", JSON.stringify([...passwordArray, {...form, id: uuidv4()}]))
 
             // console.log([...passwordArray, {...form, id: uuidv4()}]);
@@ -106,14 +107,18 @@ const Manager = () => {
         // localStorage.setItem("password", JSON.stringify(passwordArray.filter(item=>item.id!=id)))
         
     }
-    const deletePassword = (id) => {
+    const deletePassword = async (id) => {
         // console.log(form);
         let c = confirm("Do you really want to delete this password?")
         // console.log("deleting password with id: ", id);
         if (c) {
             
             setPasswordArray(passwordArray.filter(item=>item.id!=id))
-            localStorage.setItem("password", JSON.stringify(passwordArray.filter(item=>item.id!=id)))
+
+            await fetch("http://localhost:3000/", {method: "DELETE", headers: {"Content-Type": "application/json"}, body: JSON.stringify({id})})
+
+            // localStorage.setItem("password", JSON.stringify(passwordArray.filter(item=>item.id!=id)))
+
             toast('Deleted!', {
             position: "top-right",
             autoClose: 2000,
