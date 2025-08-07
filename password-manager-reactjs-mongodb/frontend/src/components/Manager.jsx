@@ -66,6 +66,8 @@ const Manager = () => {
             
             setPasswordArray([...passwordArray, {...form, id: uuidv4()}])
 
+            await fetch("http://localhost:3000/", {method: "DELETE", headers: {"Content-Type": "application/json"}, body: JSON.stringify({id: form.id})})
+
             await fetch("http://localhost:3000/", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({...form, id: uuidv4()})})
 
             // localStorage.setItem("password", JSON.stringify([...passwordArray, {...form, id: uuidv4()}]))
