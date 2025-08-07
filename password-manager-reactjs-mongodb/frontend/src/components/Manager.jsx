@@ -104,7 +104,8 @@ const Manager = () => {
         // console.log(form);
         
         console.log("editing password with id: ", id);
-        setform(passwordArray.filter(item=>item.id===id)[0])
+        setform({...passwordArray.filter(item=>item.id===id)[0], id : id })
+        // setform(passwordArray.filter(item=>item.id===id)[0])
         setPasswordArray(passwordArray.filter(item=>item.id!=id))
         // localStorage.setItem("password", JSON.stringify(passwordArray.filter(item=>item.id!=id)))
         
@@ -243,7 +244,7 @@ const Manager = () => {
 
                                     <td className='py-2 border-white text-center'>
                                         <div className='mx-3 flex items-center justify-center'>
-                                            <span>{item.password}</span>
+                                            <span>{"*".repeat(item.password.length)}</span>
                                             <div className="lordiconCopy size-7 cursor-pointer" onClick={() => { copyText(item.password) }}>
                                                 <lord-icon
                                                     style={{ "width": "25px", "height": "25px", "paddingTop": "3px", "paddingLeft": "3px" }}
