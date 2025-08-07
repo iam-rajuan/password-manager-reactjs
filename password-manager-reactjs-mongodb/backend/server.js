@@ -6,6 +6,7 @@ import express from "express";
 import dotenv from "dotenv";
 import { MongoClient } from "mongodb";
 import bodyParser from 'body-parser'
+// import cors from "cors";
 
 // console.log(process.env.MONGO_URI)
 dotenv.config();
@@ -13,6 +14,7 @@ dotenv.config();
 const app = express();
 const port = 3000;
 app.use(bodyParser.json())
+// app.use(cors())
 
 // Connection URL
 const url = process.env.MONGO_URI;
