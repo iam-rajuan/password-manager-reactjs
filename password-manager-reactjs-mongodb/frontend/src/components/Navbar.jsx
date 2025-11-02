@@ -59,7 +59,7 @@ const Navbar = () => {
           >
             <div className="flex flex-col items-center space-y-4 py-4">
               <motion.a
-                href="https://github.com/"
+                href="https://github.com/iam-rajuan"
                 target="_blank"
                 rel="noreferrer"
                 whileHover={{ scale: 1.05 }}
